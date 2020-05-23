@@ -1,21 +1,32 @@
 import {combineReducers} from 'redux';
 
-import { JOIN_ROOM } from "../constants/action-types";
+import { JOIN_ROOM, CREATE_ROOM } from "../constants/action-types";
 
 const initialState = {
-  room: undefined,
-  connected: false,
-  loading: false
+  room: {},
+  game: {},
+  connected: false
 };
 
 function roomReducer(state = initialState, action) {
-  if(action.type === JOIN_ROOM){
-    return {
-      ...state,
-      room : action.payload
-    }
+  switch(action.type) {
+    case CREATE_ROOM:
+      return {
+        ...state,
+        room : action.payload.room,
+        connected: true
+      };
+
+    case JOIN_ROOM:
+      return {
+        ...state,
+        room : action.payload.room,
+        connected: true
+      };
+
+    default:
+      return state;
   }
-  return state;
 };
 
 const rootReducer = combineReducers({

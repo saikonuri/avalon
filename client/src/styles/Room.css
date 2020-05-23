@@ -1,0 +1,45 @@
+.parent {
+  display: flex;
+  flex-direction: column;
+  margin-left: 22px;
+  margin-right: 22px;
+  height: 100vh;
+}
+
+.child {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%;
+}
+
+.player-box {
+  height: 40%;
+  width: 13%;
+}
+
+.player-list {
+  font-size: large;
+  color: #21ba45;
+}
+
+.game-box {
+  width: 60%;
+  height: 100%;
+}
+
+.message-box {
+  height: 50%;
+  width: 23%;
+}
+
+.room-title {
+  text-align: left;
+  margin-left: 2%;
+}
+
+h1 {
+  color: #6435c9;
+  font-weight: bolder;
+}
