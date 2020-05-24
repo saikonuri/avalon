@@ -1,8 +1,10 @@
-import { Button, Form, Grid, Header, Image, Message, Segment, Icon, Divider, List } from 'semantic-ui-react';
+import { Button, Rating, Form, Grid, Header, Image, Segment, Icon, Divider, List, Menu, Message } from 'semantic-ui-react';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/Room.css';
 import Games from './Games';
+import { AiOutlineLaptop } from "react-icons/ai";
+import Chat from './Chat';
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -14,11 +16,35 @@ const mapDispatchToProps = {
 }
 
 class Room extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div class='parent'>
         <br />
-        <Message color='violet' style={{textAlign: 'center', fontWeight: 'bold', fontSize: 'medium', width: '20%'}} compact content="Room Name"/>
+        {/* <Message color='violet' style={{textAlign: 'center', fontWeight: 'bold', fontSize: 'medium', width: '20%'}} compact content="Room Name"/> */}
+        <br />
+        <div class='top'>
+          <div class="room-title">
+            <Segment inverted color='violet'>
+              <Header as='h4' inverted>
+                Room Name
+              </Header>
+            </Segment>
+          </div>
+          <AiOutlineLaptop color='green' size={80} className="icon-spin" />
+          <div class="links">
+            <Menu widths={2} secondary>
+              <Menu.Item>
+                <Button color='green'>Invite</Button>
+              </Menu.Item>
+              <Menu.Item>
+                <Button color="red">Leave</Button>
+              </Menu.Item>
+            </Menu>
+          </div>
+        </div>
         <br />
         <br />
         <div class='child'>
@@ -26,7 +52,6 @@ class Room extends React.Component {
             <Divider horizontal>
               <Header as='h4'>
                 <Icon name='group' />
-                  Players
               </Header>
             </Divider>
             <div class='player-list'>
@@ -43,16 +68,22 @@ class Room extends React.Component {
                 GAMES
               </Header>
             </Divider>
-            <Games/>
+            <Games />
+            <br />
+            <Rating style={{ width: '10%' }} icon='heart' defaultRating={3} maxRating={5} />
+            <div >
+              <Message style={{ width: '20%', margin: 'auto', marginTop: '1%' }}>
+                Leave a rating!
+              </Message>
+            </div>
           </div>
           <div class='message-box'>
             <Divider horizontal>
               <Header as='h4'>
                 <Icon name='chat' />
-                  Messages
               </Header>
             </Divider>
-            <Segment placeholder></Segment>
+            <Chat />
           </div>
         </div>
       </div>

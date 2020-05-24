@@ -11,7 +11,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
-  height: 100%;
+  height: 95%;
 }
 
 .player-box {
@@ -27,6 +27,7 @@
 .game-box {
   width: 60%;
   height: 100%;
+  text-align: center;
 }
 
 .message-box {
@@ -35,11 +36,65 @@
 }
 
 .room-title {
-  text-align: left;
-  margin-left: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  justify-content: center;
+  color: #6435c9;
+  /* border: solid;
+  border-radius: 10px; */
+  /* border-top: solid;
+  border-bottom: solid;
+  border-radius: 1px;
+  border-width: 1px; */
+  width: 13%;
+}
+
+.links {
+  width: 23%;
+}
+
+.top {
+  width: 100%;
+  height: 2%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 h1 {
   color: #6435c9;
   font-weight: bolder;
 }
+
+h2 {
+  font-family: 'PT Sans Narrow'
+}
+
+/* .icon-spin {
+  -webkit-animation: icon-spin 8s infinite linear;
+          animation: icon-spin 8s infinite linear;
+}
+
+@-webkit-keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+
+@keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+} */
