@@ -60,6 +60,7 @@ io.on('connection', (socket) => {
     console.log(user + ' joined: ' + roomName);
     socket.join(roomName);
     io.in(roomName).emit('room log', user + ' joined room');
+    io.in(roomName).emit('joined', user);
   });
 
 });

@@ -9,17 +9,19 @@ import {
 } from "react-router-dom";
 import Home from './components/Home';
 import Room from './components/Room';
+import { ToastContainer } from 'react-tiny-toast';
+
 
 function App() {
   return (
-    <div className="App">
+      <div className="App">
+        <ToastContainer />
       <Router>
         <Switch>
-          <Route path="/room">
-            <Room/>
-          </Route>
+          <Route path="/room" render={(props) => {return <Room {...props} />}}/>
+          <Route path="/join/:code" render={(props) => { return <Home {...props} /> }} />
           <Route path="/">
-            <Home/>
+            <Home />
           </Route>
         </Switch>
       </Router>

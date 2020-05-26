@@ -8,6 +8,10 @@
   pointer-events: none;
 }
 
+#react-tiny-toast-main-container{
+  color: #6435c9;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

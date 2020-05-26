@@ -4,12 +4,24 @@ import { connect } from 'react-redux';
 import '../styles/Room.css';
 import Games from './Games';
 import { AiOutlineLaptop } from "react-icons/ai";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Chat from './Chat';
+import {toast} from 'react-tiny-toast';
+import {Redirect} from 'react-router-dom';
 
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+  state = state.roomReducer;
+  return {
   // ... computed data from state and optionally ownProps
-})
+    room: state.room,
+    game: state.game,
+    users: state.users,
+    creator: state.creator,
+    username: state.username,
+    chat: state.chat,
+    connected: state.connected
+}};
 
 const mapDispatchToProps = {
   // ... normally is an object full of action creators
@@ -18,29 +30,50 @@ const mapDispatchToProps = {
 class Room extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleCopy = this.handleCopy.bind(this);
   }
+
+  handleCopy() {
+    toast.show('Invite link copied to clipboard!', { timeout: 3000, position: 'bottom-right' });
+  }
+
   render() {
+    if(this.props.room === null){
+      return(
+        <Redirect to="/" />
+      );
+    }
+    console.log(this.props);
     return (
       <div class='parent'>
-        <br />
-        {/* <Message color='violet' style={{textAlign: 'center', fontWeight: 'bold', fontSize: 'medium', width: '20%'}} compact content="Room Name"/> */}
-        <br />
+        <div style={{marginTop: '25px'}}></div>
         <div class='top'>
           <div class="room-title">
-            <Segment inverted color='violet'>
-              <Header as='h4' inverted>
+          {/* <AiOutlineLaptop color='black' size={80} className="icon-spin" /> */}
+          <h2>Zoom Rooms</h2>
+          </div>
+          {/* <Segment inverted color='violet'>
+              <Header as='h2' inverted>
                 Room Name
               </Header>
-            </Segment>
-          </div>
-          <AiOutlineLaptop color='green' size={80} className="icon-spin" />
+            </Segment> */}
+            <h1>{this.props.room}</h1>
           <div class="links">
             <Menu widths={2} secondary>
               <Menu.Item>
-                <Button color='green'>Invite</Button>
+              <CopyToClipboard text={window.location.hostname + ':3000/join/kul'} >
+                <Button icon labelPosition='left' color='green' onClick={() => this.handleCopy()}>
+                  <Icon name='linkify'/>
+                  Invite
+                </Button>
+              </CopyToClipboard>
               </Menu.Item>
               <Menu.Item>
-                <Button color="red">Leave</Button>
+                <Button icon labelPosition='right' color="red">
+                <Icon name='sign-out alternate'/>
+                  Leave
+                </Button>
               </Menu.Item>
             </Menu>
           </div>
@@ -56,9 +89,12 @@ class Room extends React.Component {
             </Divider>
             <div class='player-list'>
               <List>
-                <List.Item>Apples</List.Item>
+                {/* <List.Item>Apples</List.Item>
                 <List.Item>Pears</List.Item>
-                <List.Item>Oranges</List.Item>
+                <List.Item>Oranges</List.Item> */}
+                {this.props.users.map((u, i) => {
+                  return <List.Item>{u}</List.Item>
+                })}
               </List>
             </div>
           </div>
