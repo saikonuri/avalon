@@ -43,6 +43,9 @@ const override = css`
 // if not, then persistor.purge()
 // If room active, make sure to connect to socket server again!
 
+if(module.hot){
+  module.hot.accept()
+}
 
 ReactDOM.render(
   <React.StrictMode>
@@ -55,7 +58,7 @@ ReactDOM.render(
             color={"#6377f7"}
           />
         }
-        persistor={persistor}> */}
+      persistor={persistor}> */}
         <App />
       {/* </PersistGate> */}
     </Provider>

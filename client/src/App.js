@@ -10,6 +10,7 @@ import {
 import Home from './components/Home';
 import Room from './components/Room';
 import { ToastContainer } from 'react-tiny-toast';
+import {hot} from 'react-hot-loader';
 
 
 function App() {
@@ -29,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(module)(App);

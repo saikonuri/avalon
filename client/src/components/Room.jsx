@@ -44,25 +44,19 @@ class Room extends React.Component {
         <Redirect to="/" />
       );
     }
-    console.log(this.props);
+
     return (
       <div class='parent'>
         <div style={{marginTop: '25px'}}></div>
         <div class='top'>
           <div class="room-title">
-          {/* <AiOutlineLaptop color='black' size={80} className="icon-spin" /> */}
-          <h2>Zoom Rooms</h2>
+            <h2>Zoom Rooms</h2>
           </div>
-          {/* <Segment inverted color='violet'>
-              <Header as='h2' inverted>
-                Room Name
-              </Header>
-            </Segment> */}
             <h1>{this.props.room}</h1>
           <div class="links">
             <Menu widths={2} secondary>
               <Menu.Item>
-              <CopyToClipboard text={window.location.hostname + ':3000/join/kul'} >
+              <CopyToClipboard text={window.location.hostname + ':3000/join/' + this.props.room} >
                 <Button icon labelPosition='left' color='green' onClick={() => this.handleCopy()}>
                   <Icon name='linkify'/>
                   Invite
@@ -89,9 +83,6 @@ class Room extends React.Component {
             </Divider>
             <div class='player-list'>
               <List>
-                {/* <List.Item>Apples</List.Item>
-                <List.Item>Pears</List.Item>
-                <List.Item>Oranges</List.Item> */}
                 {this.props.users.map((u, i) => {
                   return <List.Item>{u}</List.Item>
                 })}
@@ -101,17 +92,10 @@ class Room extends React.Component {
           <div class='game-box'>
             <Divider horizontal>
               <Header as='h4'>
-                GAMES
+                {this.props.game === null ? "GAMES" : this.props.game.name}
               </Header>
             </Divider>
             <Games />
-            <br />
-            <Rating style={{ width: '10%' }} icon='heart' defaultRating={3} maxRating={5} />
-            <div >
-              <Message style={{ width: '20%', margin: 'auto', marginTop: '1%' }}>
-                Leave a rating!
-              </Message>
-            </div>
           </div>
           <div class='message-box'>
             <Divider horizontal>
@@ -120,6 +104,13 @@ class Room extends React.Component {
               </Header>
             </Divider>
             <Chat />
+            <br />
+            <Rating style={{ width: '25%' }} icon='heart' defaultRating={3} maxRating={5} />
+            <div >
+              <Message style={{ width: '40%', margin: 'auto', marginTop: '1%' }}>
+                Leave a rating!
+              </Message>
+            </div>
           </div>
         </div>
       </div>

@@ -1,7 +1,11 @@
 import {
   JOIN_ROOM,
   CREATE_ROOM ,
-  ADD_PLAYER
+  ADD_PLAYER,
+  SEND_MESSAGE,
+  RECEIVE_MESSAGE,
+  START_GAME,
+  SPADES
 } from "../constants/action-types";
 
 export function joinRoom(payload) {
@@ -14,4 +18,20 @@ export function createRoom(payload) {
 
 export function addPlayer(payload) {
   return {type: ADD_PLAYER, payload};
+}
+
+export function sendMessage(payload) {
+  return {type: SEND_MESSAGE, payload};
+}
+
+export function receiveMessage(payload) {
+  return {type: RECEIVE_MESSAGE, payload};
+}
+
+export function startGame(payload) {
+  return {type: START_GAME, payload};
+}
+
+export function spades(payload) {
+  return {type: SPADES, payload};
 }

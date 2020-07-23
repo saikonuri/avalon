@@ -43,7 +43,7 @@ class Home extends React.Component {
         linked: true
       });
     } catch {
-      console.log("Not a join link");
+
     }
   }
 

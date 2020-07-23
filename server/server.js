@@ -17,9 +17,6 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Create a private room
 app.post('/api/new', (req, res) => {
-  console.log("CREATING NEW ROOM");
-  console.log(req.body);
-
   const [success, data] = db.createRoom(req.body.roomName, req.body.username);
 
   if(success){
@@ -31,9 +28,6 @@ app.post('/api/new', (req, res) => {
 
 // Join a private room
 app.post('/api/join', (req, res) => {
-  console.log("JOINING ROOM");
-  console.log(req.body);
-
   const [success, data] = db.joinRoom(req.body.roomName, req.body.username);
 
   if(success){
@@ -46,21 +40,73 @@ app.post('/api/join', (req, res) => {
 // User (from client browser) connects to the socket
 io.on('connection', (socket) => {
   console.log(socket.id + ' is connected');
-  socket.on('disconnect', () => {
-    console.log(socket.id + ' is disconnected');
+  socket.on('disconnect', (reason) => {
+    console.log(socket.id + ' is disconnected: ' + reason);
+
   });
 
+  socket.on('resubscribe', (room) => {
+    console.log('reconnecting to room: ' + room);
+    socket.join(room);
+  });
+  // socket.on('resubscribe', (room) => {
+  //   console.log(socket.id + ' rejoining')
+  //   socket.join(room);
+  // });
+
   socket.on('created', (roomName, user) => {
-    console.log(user + ' created: ' + roomName);
     socket.join(roomName);
     io.in(roomName).emit('room log', user + ' created room');
   });
 
   socket.on('joined', (roomName, user) => {
-    console.log(user + ' joined: ' + roomName);
     socket.join(roomName);
     io.in(roomName).emit('room log', user + ' joined room');
     io.in(roomName).emit('joined', user);
+  });
+
+  socket.on('message', (roomName, user, message) => {
+    db.addChatMessage({room: roomName, user: user, text: message});
+    io.in(roomName).emit('message', user, message);
+  });
+
+  socket.on('start game', (roomName, user, game) => {
+    var created = db.startGame(roomName, user, game);
+    io.in(roomName).emit('start game', created);
+  });
+
+  socket.on('skull', (roomName, user, action, data) => {
+    var update = db.skullAction(roomName, user, action, data);
+    io.in(roomName).emit('skull', user, action, update);
+  });
+
+  socket.on('spades', (roomName, user, action, data) => {
+    if(action == 'SHUFFLE'){
+      data = db.shuffleSpades(roomNamedata)
+    }
+
+    if(action == 'SET TEAMS'){
+      data = db.setTeamsSpades(roomName, data);
+    }
+
+    if(action == 'RESTART'){
+      data = db.restartSpades(roomName);
+    }
+
+    if(action == 'START'){
+      data = db.startSpades(roomName);
+    }
+
+    if(action == 'PREDICT'){
+      data = db.predictSpades(roomName, user, data);
+    }
+
+    if(action == 'DISCARD'){
+      // data = db.discardSpades(roomName, user, data);
+    }
+
+    console.log(data);
+    io.in(roomName).emit('spades', user, action, data);
   });
 
 });

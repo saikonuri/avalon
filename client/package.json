@@ -3,19 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "cardsJS": "^1.1.1",
+    "chroma-js": "^2.1.0",
     "halogen": "^0.2.0",
     "react": "^16.13.1",
     "react-chat-ui": "^0.3.2",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.12.21",
     "react-icons": "^3.10.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "react-spinners": "^0.8.3",
     "react-tiny-toast": "^0.1.17",
     "react-toast-notifications": "^2.4.0",
@@ -45,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.11"
   }
 }

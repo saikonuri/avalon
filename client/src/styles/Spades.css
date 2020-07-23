@@ -1,0 +1,215 @@
+.spades-parent{
+  display: flex;
+  flex-direction: column;
+  height: 110%;
+}
+
+.spades-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  width: 100%;
+}
+
+.spades-area {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.spades-top-players {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 30%;
+  width: 100%;
+}
+
+.spades-top-player {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6vmin;
+}
+
+.spades-middle {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 40%;
+  width: 100%;
+}
+
+.spades-table {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #35654d;
+  height: 100%;
+  width: 100%;
+  border: solid;
+  border-color: rgb(110, 34, 15);
+  border-width: 15px;
+  border-radius: 5%;
+}
+
+.spades-bottom-player {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6vmin;
+}
+
+.spades-bottom-players {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 30%;
+  width: 100%;
+}
+
+.spade-hand {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 100%;
+  padding-left: 10%;
+}
+
+.spade-flipped-card {
+  height: 70%;
+  width: 20%;
+  background-color: rgb(130, 130, 245);
+  border: solid;
+  border-width: 1.5px;
+  border-color: rgb(71, 71, 71);
+  border-radius: 5%;
+  margin-left: -28px;
+}
+
+.spade-my-card {
+  height: 70%;
+  width: 20%;
+  background-color: rgb(255, 255, 255);
+  border: solid;
+  border-color: grey;
+  border-radius: 5%;
+  margin-left: -28px;
+  border-width: 1.5px;
+}
+
+.spade-my-card:hover {
+  margin-right: 35px;
+  height: 80%;
+  width: 23%;
+  cursor: pointer;
+}
+
+.spades-card-top {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.small-symbol {
+  font-size: 1vmin;
+}
+
+.spades-card-bottom {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.spades-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 5%;
+  font-size: 1.5vmin;
+  font-weight: bold;
+}
+
+.spades-discard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  height: 90%;
+  width: 20%;
+  background-color: white;
+  padding: 1.7%;
+  font-size: 1.5vmin;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  border: solid;
+  border-color: grey;
+  border-width: 1.5px;
+  border-color: rgb(71, 71, 71);
+}
+
+.spades-top-discards {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.spades-settings {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.spades-bottom-discards {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.spades-discard {
+  height: 100%;
+  width: 25%;
+}
+
+.spades-player-team-container {
+  padding: 2%;
+}

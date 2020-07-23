@@ -1,0 +1,157 @@
+.skull-container {
+  background-image: linear-gradient(white, #e4dbf8);
+  /* background-color: rgb(209, 253, 226); */
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px;
+  text-align: center;
+  margin: auto;
+  padding-top: 3%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.my-skull-cards {
+  height: 25%;
+  width: 100%;
+  /* background-color: brown; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.skull-card {
+  height: 70%;
+  width: 7%;
+  border-radius: 5px;
+  align-items: center;
+  /* -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.3); */
+  background-color: rgb(59, 184, 76);
+  margin-right: 2px;
+}
+
+.skull-table {
+  height: 40%;
+  width: 100%;
+  /* background-color: chocolate; */
+  border-bottom: solid;
+  border-top: solid;
+  border-color: grey;
+  border-width: 1px;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.other-skull-cards {
+  height: 25%;
+  width: 100%;
+  padding: 2%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.other-set-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  height: 100%;
+}
+
+.other-set {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 75%;
+}
+
+.skull-other-card {
+  height: 80%;
+  width: 25%;
+  border-radius: 5px;
+  margin-right: 1px;
+  margin-left: 1px;
+  align-items: center;
+  /* -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.3); */
+  background-color: grey;
+}
+
+.my-skull-pot {
+  display: flex;
+  flex-direction: row;
+  height: 40%;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.other-skull-pots {
+  display: flex;
+  flex-direction: row;
+  height: 40%;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* .other-skull-pots {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+} */
+
+.other-pot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 100%;
+}
+
+.other-pot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* margin: auto; */
+  height: 100%;
+  width: 100%;
+}
+
+.skull-pot-card {
+  height: 60%;
+  width: 20%;
+  border-radius: 5px;
+  border-left: solid;
+  border-color: black;
+  border-width: 2px;
+  align-items: center;
+  /* -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.3); */
+  background-color: grey;
+  position: relative;
+  margin-left: -4px;
+  /* position: absolute;
+  margin-left: -3px; */
+}
+
+.skull-pot-card-revealed {
+  background-color: rgb(59, 184, 76);
+}
+
