@@ -115,7 +115,8 @@ io.on('connection', (socket) => {
 
 });
 
+const PORT = process.env.PORT || 4000;
 // Start the server
-var server = http.listen(80, () => {
+var server = http.listen(PORT, () => {
   console.log('GAME SERVER is running on port ', server.address().port);
 });
