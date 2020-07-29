@@ -5,3 +5,4 @@ export const SEND_MESSAGE = "SEND_MESSAGE";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 export const START_GAME = "START_GAME";
 export const SPADES = "SPADES";
+export const SPADES_DELAY = "SPADES_DELAY";

@@ -24,9 +24,9 @@ class SpadeHand extends React.Component {
   render() {
     return (
       <div class="spade-hand">
-        {this.props.hand.map((h) => {
+        {this.props.hand.map((h, i) => {
           return(
-            <SpadeCard mine={this.props.mine} card={h}/>
+            <SpadeCard mine={this.props.mine} card={h} index={i}/>
           );
         })}
       </div>

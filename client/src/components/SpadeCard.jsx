@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/Spades.css';
 import Spades from './Spades';
+import * as socketClient from '../socket-api.js';
 
 const mapStateToProps = (state, ownProps) => {
   state = state.roomReducer;
@@ -76,12 +77,54 @@ const mapping = {
 };
 
 class SpadeCard extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.handleDiscard = this.handleDiscard.bind(this);
+  }
+
+  handleDiscard(key){
+    console.log('Discarding ' + this.props.game.players[this.props.user].hand[key]);
+    const hand = this.props.game.players[this.props.user].hand;
+    const card = mapping[this.props.game.players[this.props.user].hand[key]];
+
+    // if startingsuit == null, then don't do any checks...
+    if(this.props.game.startingSuit == null){
+      socketClient.sendSpades(this.props.room, this.props.user, "DISCARD", {index: key});
+      return;
+    }
+
+    var anything = true;
+    for(var i = 0; i < hand.length; i++){
+      var suit = mapping[hand[i]].suit;
+      if(suit == "joker"){
+        continue;
+      }
+      if(suit === this.props.game.startingSuit){
+        anything = false;
+      }
+    }
+
+    if(!anything && card.suit !== this.props.game.startingSuit){
+      if(card.suit == "joker" && this.props.game.startingSuit == "spades"){
+        socketClient.sendSpades(this.props.room, this.props.user, "DISCARD", {index: key});
+        return;
+      }
+      alert('Must discard same suit!');
+      return;
+    }
+    socketClient.sendSpades(this.props.room, this.props.user, "DISCARD", {index: key});
+  }
+
   render() {
+    console.log(this.props.card);
     let properties = mapping[this.props.card];
     let symbolDiv = null;
     let symbolSpan = null;
 
-    if(properties !== null){
+    let myTurn = (this.props.user === this.props.game.order[this.props.game.turn]);
+
+    if(properties !== null && properties !== undefined){
       switch(properties.suit){
         case 'spades':
           symbolDiv = <div class="small-symbol" style={{color: "black"}}>&spades;</div>;
@@ -119,7 +162,7 @@ class SpadeCard extends React.Component {
     }
 
     return (
-      <a class={this.props.mine ? "spade-my-card" : "spade-flipped-card"}>
+      <a class={this.props.mine ? "spade-my-card" : "spade-flipped-card"} onClick={this.props.game.stage == 'TRICK' && myTurn ? () => this.handleDiscard(this.props.index): console.log("Can't discard!")}>
         {this.props.mine ? (
           <div class="spades-card-container">
             <div class="spades-card-top" style={properties.color == "red" ? {color: 'red'}: {color: 'black'} }>{properties.value}

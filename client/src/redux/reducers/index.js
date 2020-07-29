@@ -7,7 +7,8 @@ import {
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
   START_GAME,
-  SPADES
+  SPADES,
+  SPADES_DELAY
 } from "../constants/action-types";
 import { GiAnnexation } from 'react-icons/gi';
 
@@ -75,6 +76,27 @@ function roomReducer(state = initialState, action) {
         game: action.payload
       }
 
+    case SPADES_DELAY:
+      let game = {...state.game};
+      var discard = game.players[action.payload.user].hand[action.payload.data];
+
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          players: {
+            ...state.game.players,
+            [action.payload.user]: {
+              ...state.game.players[action.payload.user],
+              discard: discard,
+              hand: state.game.players[action.payload.user].hand.filter((elem, idx) =>
+                idx !== action.payload.data
+              )
+            }
+          }
+        }
+      }
+
     case SPADES:
       console.log("SPADES REACHED REDUCER");
       if(action.payload.action == "SET TEAMS"){
@@ -110,6 +132,8 @@ function roomReducer(state = initialState, action) {
         game.stage = action.payload.data.stage;
         game.turn = action.payload.data.turn;
         game.dealer = action.payload.data.dealer;
+        game.currentWinning = action.payload.data.currentWinning;
+        game.startingSuit = action.payload.data.startingSuit;
         for(var i = 0; i < game.order.length; i++){
           game.players[game.order[i]] = action.payload.data.players[game.order[i]];
         }
@@ -125,6 +149,23 @@ function roomReducer(state = initialState, action) {
         game.teams = action.payload.data.teams;
         game.turn = action.payload.data.turn;
         game.stage = action.payload.data.stage;
+
+        return {
+          ...state,
+          game: game
+        }
+      }
+
+      if(action.payload.action == "DISCARD"){
+        let game = {...state.game};
+        game.teams = action.payload.data.teams;
+        game.turn = action.payload.data.turn;
+        game.stage = action.payload.data.stage;
+        game.players = action.payload.data.players;
+        game.currentWinning = action.payload.data.currentWinning;
+        game.startingSuit = action.payload.data.startingSuit;
+        game.dealer = action.payload.data.dealer;
+        game.round = action.payload.data.round;
 
         return {
           ...state,

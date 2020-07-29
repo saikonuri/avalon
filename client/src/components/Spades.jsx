@@ -71,12 +71,8 @@ class Spades extends React.Component {
     socketClient.sendSpades(this.props.room, this.props.user, 'RESTART', null);
   }
 
-  handlePredict(e, data){
-    let done = false;
-    if(this.props.game.teams[this.props.game.players[this.props.user].team].prediction >= 0){
-      done = true;
-    }
-    socketClient.sendSpades(this.props.room, this.props.user, 'PREDICT', {user: this.props.user, prediction: data.value, done: done});
+  handlePredict(e, data) {
+    socketClient.sendSpades(this.props.room, this.props.user, 'PREDICT', { user: this.props.user, prediction: data.value });
   }
 
   getTopPlayers(top) {
@@ -88,8 +84,7 @@ class Spades extends React.Component {
             <div class="spades-top-player" style={{ color: colorMapping[p.team] }}>
               <h5>{p.user}</h5>
               <SpadeHand hand={p.hand} mine={p.user == this.props.user} />
-              <div>Tricks won: {p.current}</div>
-              <div>Target Tricks: {p.prediction}</div>
+              <div>{p.current}/{p.prediction}</div>
             </div>
           )
         })}
@@ -118,6 +113,7 @@ class Spades extends React.Component {
                 <div style={{ height: '100%', width: '100%', paddingTop: '20%' }}>
                   <strong style={{ color: 'white' }}>Select your prediction</strong>
                   <Dropdown
+                    upward
                     placeholder='Please select'
                     fluid
                     selection
@@ -149,17 +145,18 @@ class Spades extends React.Component {
 
           let predicted = this.props.game.teams[p.team].prediction > -1;
           let showInput = (turn === p.user) && (turn === this.props.user) && !predicted && this.props.game.round > 0;
-          let skipInput = (turn === p.user) && (turn === this.props.user) && predicted && this.props.game.round > 0;
-          console.log(skipInput);
-          if(skipInput && this.props.game.stage === "PREDICT"){
-            this.handlePredict(null, this.props.game.teams[p.team].prediction);
-          }
+          // let skipInput = (turn === p.user) && (turn === this.props.user) && predicted && this.props.game.round > 0;
+          // console.log(skipInput);
+          // if(skipInput && this.props.game.stage === "PREDICT"){
+          //   this.handlePredict(null, this.props.game.teams[p.team].prediction);
+          // }
           return (
             <div class="spades-discard">
               {showInput ?
                 <div style={{ height: '100%', width: '100%', paddingTop: '20%' }}>
                   <strong style={{ color: 'white' }}>Select your prediction</strong>
                   <Dropdown
+                    upward
                     placeholder='Please select'
                     fluid
                     selection
@@ -185,8 +182,7 @@ class Spades extends React.Component {
             <div class="spades-bottom-player" style={{ color: colorMapping[p.team] }}>
               <h5>{p.user}</h5>
               <SpadeHand hand={p.hand} mine={p.user == this.props.user} />
-              <div>Tricks won:   {p.current}</div>
-              <div>Target Tricks:   {p.prediction}</div>
+              <div>{p.current}/{p.prediction}</div>
             </div>
           )
         })}
@@ -212,11 +208,11 @@ class Spades extends React.Component {
 
       if (i < 4) {
         bottom.push(pConcat);
-        bottomDiscard.push({ user: game.order[i], card: null, team: player.team });
+        bottomDiscard.push({ user: game.order[i], card: player.discard, team: player.team });
       }
       else {
         top.push(pConcat);
-        topDiscard.push({ user: game.order[i], card: null, team: player.team });
+        topDiscard.push({ user: game.order[i], card: player.discard, team: player.team });
       }
     }
     top.reverse();
@@ -225,28 +221,33 @@ class Spades extends React.Component {
 
     return (
       <div class="spades-parent">
-        <div class="spades-container">
-          <div class="spades-area">
-            {this.getTopPlayers(top)}
-            <div class="spades-middle">
+        {this.props.game.stage !== "FINISH" ?
+          <div class="spades-container">
+            <div class="spades-area">
+              {this.getTopPlayers(top)}
+              <div class="spades-middle">
 
-              <div class="spades-table">
-                {(this.props.game.round == 0) && (this.props.creator !== this.props.user) ? <h4>Waiting for host...</h4> : <div />}
-                {(this.props.game.round > 0) && (this.props.game.order[this.props.game.turn] !== this.props.user) ? <strong style={{ color: 'white' }}>Waiting for {this.props.game.order[this.props.game.turn]}...</strong> : <div />}
-                {this.getTopDiscards(topDiscard)}
-                <div class="spades-settings">
-                  <Button onClick={() => this.handleStart()} compact color="yellow" disabled={!access}>Start</Button>
-                  <SpadesTeams />
-                  <Button onClick={() => this.handleRestart()} compact color="orange" disabled={this.props.creator !== this.props.user}>Restart</Button>
+                <div class="spades-table">
+                  {(this.props.game.round == 0) && (this.props.creator !== this.props.user) ? <h4>Waiting for host...</h4> : <div />}
+                  {(this.props.game.round > 0) && (this.props.game.order[this.props.game.turn] !== this.props.user) ? <strong style={{ color: 'white' }}>Waiting for {this.props.game.order[this.props.game.turn]}...</strong> : <div />}
+                  {this.getTopDiscards(topDiscard)}
+                  <div class="spades-settings">
+                    <Button onClick={() => this.handleStart()} compact color="yellow" disabled={!access}>Start</Button>
+                    <SpadesTeams />
+                    <Button onClick={() => this.handleRestart()} compact color="orange" disabled={this.props.creator !== this.props.user}>Restart</Button>
+                  </div>
+                  {this.getBottomDiscards(bottomDiscard)}
                 </div>
-                {this.getBottomDiscards(bottomDiscard)}
-              </div>
 
+
+              </div>
+              {this.getBottomPlayers(bottom)}
             </div>
-            {this.getBottomPlayers(bottom)}
-          </div>
-        </div>
+          </div> : <div />
+        }
+
         <DenseTable players={this.props.game.players} teams={this.props.game.teams} order={this.props.game.order} />
+        {this.props.game.stage == "FINISH" ? <Button style={{ width: '25%', margin: 'auto', marginTop: '10%' }} onClick={() => this.handleRestart()} compact color="orange" disabled={this.props.creator !== this.props.user}>Restart</Button> : <div />}
       </div>
     );
   }

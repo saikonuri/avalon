@@ -5,7 +5,7 @@ import {
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
   START_GAME,
-  SPADES
+  SPADES, SPADES_DELAY
 } from "../constants/action-types";
 
 export function joinRoom(payload) {
@@ -34,4 +34,8 @@ export function startGame(payload) {
 
 export function spades(payload) {
   return {type: SPADES, payload};
+}
+
+export function spadesDelay(payload) {
+  return {type: SPADES_DELAY, payload};
 }

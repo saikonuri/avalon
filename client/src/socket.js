@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import {addPlayer, receiveMessage, startGame, spades} from './redux/actions';
+import {addPlayer, receiveMessage, startGame, spades, spadesDelay} from './redux/actions';
 import {store} from './index.js';
 
 
@@ -29,9 +29,17 @@ socket.on('start game', (game) => {
   store.dispatch(startGame(game));
 })
 
-socket.on('spades', (user, action, data) => {
+socket.on('spades', (user, action, data, prev) => {
   console.log('RECEIVE SPADES: ' + data);
-  store.dispatch(spades({user: user, action: action, data: data}));
+  if(prev != null && prev != undefined){
+    store.dispatch(spadesDelay({user: user, action: action, data: prev}));
+    setTimeout(() => {
+      store.dispatch(spades({user: user, action: action, data: data}))
+    }, 3000)
+    // store.dispatch(spades({user: user, action: action, data: data}));
+  } else {
+    store.dispatch(spades({user: user, action: action, data: data}));
+  }
 });
 
 export default socket;

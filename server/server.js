@@ -102,11 +102,12 @@ io.on('connection', (socket) => {
     }
 
     if(action == 'DISCARD'){
-      // data = db.discardSpades(roomName, user, data);
+      data = db.discardSpades(roomName, user, data);
+      var prev = data.prev;
     }
 
     console.log(data);
-    io.in(roomName).emit('spades', user, action, data);
+    io.in(roomName).emit('spades', user, action, data, prev);
   });
 
 });
