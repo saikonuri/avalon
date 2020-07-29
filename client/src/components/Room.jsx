@@ -56,7 +56,7 @@ class Room extends React.Component {
           <div class="links">
             <Menu widths={2} secondary>
               <Menu.Item>
-              <CopyToClipboard text={window.location.hostname + ':3000/join/' + this.props.room} >
+              <CopyToClipboard text={window.location.hostname + '/join/' + this.props.room} >
                 <Button icon labelPosition='left' color='green' onClick={() => this.handleCopy()}>
                   <Icon name='linkify'/>
                   Invite

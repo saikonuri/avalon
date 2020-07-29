@@ -3,7 +3,7 @@ import {addPlayer, receiveMessage, startGame, spades, spadesDelay} from './redux
 import {store} from './index.js';
 
 
-const socket = io("http://localhost:4000");
+const socket = io();
 
 socket.on('room log', (message) => {
   console.log(message);
