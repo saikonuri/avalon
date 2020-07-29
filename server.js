@@ -116,6 +116,6 @@ io.on('connection', (socket) => {
 });
 
 // Start the server
-var server = http.listen(4000, () => {
+var server = http.listen(80, () => {
   console.log('GAME SERVER is running on port ', server.address().port);
 });
